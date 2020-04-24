@@ -66,7 +66,7 @@ class PatientsController < ApplicationController
   end
 
   def place_order    
-    if params[:presciption_ids] = nil
+    if params[:presciption_ids] != nil
       (params[:presciption_ids]).each do |a|
        medicine =  PrescriptionMedicine.find(a).medicine
        quantity =  PrescriptionMedicine.find(a).quantity     
