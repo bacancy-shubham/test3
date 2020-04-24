@@ -1,0 +1,13 @@
+<% @messages.each do |message| %>
+<strong><%= sender_name(message.sender_id) %>:</strong>
+<%= message.message %><br>
+<% end %>
+<%= form_with scope: :message, url: send_message_doctor_path(@patient.user_id) do |form| %>
+<table>
+	<tr>
+		<td><%= form.label :message %>:</td>
+		<td><%= form.text_area :message %></td>
+	</tr>
+</table>
+<%=form.submit %>
+<% end %>

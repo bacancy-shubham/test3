@@ -1,0 +1,13 @@
+  <% @orders.each do |order| %>
+    <tr class='tr'>
+      <td><%= order.medicine_stock.name %></td> 
+      <td class='quantity'><%= order.quantity %></td>
+      <td><%= order.patient.user.email %></td>
+      <td style="display:none;" class="orderId"><%= order.id %></td>
+      <td style="display:none;" class="patientId"><%= order.patient.user.id %></td>
+      <td style="display:none;" class="stockQuantity"><%= order.medicine_stock.quantity %></td>
+      <td style="display:none;" class="id"><%= order.medicine_stock.id %></td>
+      <td id='btn'></td>
+      <td class='check' style="cursor: pointer;">Check Avaibility</td>
+    </tr>
+  <% end %>

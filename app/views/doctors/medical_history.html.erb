@@ -1,0 +1,20 @@
+<% @patient_prescription.each do |prescription| %>
+<% find_doctor_name(prescription.doctor_id)  %>
+Doctor:<%= @doctor.name %><br>
+Date:<%= prescription.created_at.strftime("%d/%m/%y") %>
+<br>
+<table border='1'>
+  <tr>
+    <th>Medicine Name</th>
+    <th>Quantity</th>
+  </tr>
+  <% prescription_medicines(prescription.id) %>
+  <% @medicines.each do |medicine| %>
+  <tr>
+    <td><%= medicine.medicine%></td>
+    <td><%= medicine.quantity %></td>
+  </tr>
+  <% end %>
+</table>
+<br>
+<% end %>

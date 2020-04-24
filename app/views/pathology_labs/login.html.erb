@@ -1,0 +1,37 @@
+<div class="container" style="margin: auto;width: 50%;border: 3px solid green;padding: 10px;text-align: center;">
+  <%= form_with model: @user, url: pathology_labs_create_path, html: {method: :post} do |user_form| %>
+  <div class="form-group row">
+    <%= user_form.label :email, class: 'col-sm-4' %>
+    <%= user_form.text_field :email, class: 'col-sm-8' %>
+  </div>
+  <div class="form-group row">
+    <%= user_form.label :password, class: 'col-sm-4' %>
+    <%= user_form.password_field :password, class: 'col-sm-8' %>
+  </div>
+  
+  <%= user_form.fields_for :pathology_lab, @pathology_lab do |form| %>
+  <div class="form-group row">
+    <%= form.label :lab_name, class: 'col-sm-4' %>
+    <%= form.text_field :name, class: 'col-sm-8' %>
+  </div>
+  <div class="form-group row">
+    <%= form.label :lab_address, class: 'col-sm-4' %>
+    <%= form.text_area(:address, cols: 40, rows: 3, class: 'col-sm-8') %>
+  </div>
+  <div class="form-group row">
+    <%= form.label :contact_number, class: 'col-sm-4' %>
+    <%= form.number_field :contact_number, class: 'col-sm-8' %>
+  </div>
+  
+  <% end %>
+  
+  <div class="form-group row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <%= user_form.submit 'Become A Pathology Lab' %>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+  <% end %>
+</div>
+ 

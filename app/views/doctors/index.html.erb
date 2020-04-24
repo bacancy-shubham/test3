@@ -1,0 +1,13 @@
+<%= render "layouts/doctor_layout.html.erb" %>
+<h4>Doctor's Dashboard</h4>
+<%= link_to 'Patient Requests', requests_doctors_path %>
+<br>
+<%= link_to 'My Patients', my_patients_doctors_path %>
+<br>
+<%= link_to 'Appoiments', appoiments_doctors_path %>
+<br>
+<%= link_to 'My Profile', my_profile_doctors_path %>
+<br>
+<% if is_doctor_authorized? && availability_registered? %>
+  <%= link_to 'Activate online appoiment booking', availability_form_doctors_path %>
+<% end %>

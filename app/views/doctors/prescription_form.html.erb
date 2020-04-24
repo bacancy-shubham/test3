@@ -1,0 +1,23 @@
+<% if @temp == false  %>
+<%= nested_form_for @prescription, url: post_prescription_doctor_path do |form| %>
+<%= form.label :disease %>
+<%= form.text_field :disease %>
+<div id='field_for_form'>
+  <%= form.fields_for :prescription_medicines, @prescription_medicine do |medicines_form| %>
+  <%= medicines_form.label :medicine %>
+  <%= medicines_form.text_field :medicine %>
+  <%= medicines_form.label :quantity %>
+  <%= medicines_form.text_field :quantity %>
+  <% end %>
+</div>
+<%= form.submit "Submit" %>
+<% end %>
+<% else %>
+<%= form_with model:@prescription_medicine, url: post_prescription_doctor_path, method: :post  do |form| %>
+<%= form.label :medicine %>
+<%= form.text_field :medicine %>
+<%= form.label :quantity %>
+<%= form.text_field :quantity %>
+<%= form.submit "Submit" %>
+<% end %>
+<% end %>
