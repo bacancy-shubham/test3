@@ -1,0 +1,28 @@
+<% if current_user.has_role? :patient %>
+  <% if @prescriptions.empty? %>
+   <h2>no prescription for you</h2>
+  <% else %>
+    <h2>your prescription is</h2>
+    <table class = "table">
+      <tr>
+        <th>Doctor Name</th>
+        <th>Medicine</th>
+        <th>Quantity</th>
+        <th></th>
+      </tr>
+      <% @prescriptions.each do |prescription| %>
+        <% @prescriptions.prescription_medicine.each do |medicine| %>
+          <tr>
+            <td><%= prescription.doctor.name %></td>
+           <!-- <td><%#= prescription.medicine %></td> -->
+           <!-- <td><%#= prescription.quantity %></td> --> 
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+        <h2>buy Medicine</h2>
+        <%= link_to 'go to store', store_patient_path(params[:id], patient_id: params[:patient_id]) %>
+  <% end %>
+<% else %>
+  <h2>this page is only for patients</h2>
+<% end %>

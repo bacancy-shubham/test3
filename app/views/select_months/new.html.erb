@@ -1,0 +1,26 @@
+<div class="container">
+  <h4> Select Avaibility</h4>
+  <%= form_with(model: @select_month, local: true, url: select_months_path) do |form| %>
+    <div class="form-group row">
+      <%= form.label :select_starting_date, class: 'col-sm-4' %>
+      <%= form.date_select :starting_date %>
+    </div>
+    <div class="form-group row">
+      <%= form.label :select_ending_date, class: 'col-sm-4' %>
+      <%= form.date_select :ending_date, end_year: 2050 %>
+    </div>
+    <div class="form-group row">
+      <%= form.label :starting_time, class: 'col-sm-4' %>
+      <%= form.time_select :starting_time %>
+    </div>
+    <div class="form-group row">
+      <%= form.label :ending_time, class: 'col-sm-4' %>
+      <%= form.time_select :ending_time %>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-4"></div> 
+        <div class="col-sm-4"><%= form.submit 'Add Date and Time', class: 'btn btn-success center'%></div>
+      <div class="col-sm-4"></div> 
+    </div>
+  <% end %>
+</div>

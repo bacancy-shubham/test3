@@ -1,0 +1,22 @@
+  <%= form_with(model:@order, url: order_patient_path(current_user.patient.id), local: true) do |f| %>
+    <p>
+     select store: <%= f.select(:store_id, @stores) %>
+    </p>
+    <table class = "table">
+      <tr>
+        <th>Doctor Name</th>
+        <th>Medicine</th>
+        <th>Quantity</th>
+        <th>select medicine</th>
+      </tr>
+      <% @prescriptions.each do |prescription| %>
+        <tr>
+          <td><%= prescription.doctor.name %></td>
+         <!-- <td><%#= prescription.medicine %></td>
+          <td><%#= prescription.quantity %></td> -->
+          <td><%= check_box_tag "presciption_ids[]", prescription.id %></td>
+        </tr>
+      <% end %>
+    </table>
+    <%= f.submit :'place order', class: "btn btn-success  btn-sm" %>
+  <% end %>

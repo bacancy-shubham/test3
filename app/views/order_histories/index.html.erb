@@ -1,0 +1,46 @@
+<h1> All Your Orders</h1>
+<div class="container">
+  <table class="table table-dark" style="text-align: center;" border="1">
+    <thead>
+      <tr>
+        <th scope="col">Index</th>
+        <th scope="col">Medicine Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Order created At</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <div id="container">
+      <% counter = 0 %>
+      <% @order_histories.each do |order_history| %>
+        <tr class='tr'>
+          <% counter += 1 %>
+          <td><%= counter %></td> 
+          <td><%= order_history.name %></td>
+          <td><%= order_history.price %></td>
+          <td class='quantity'><%= order_history.quantity %></td>
+          <td><%= order_history.updated_at.strftime("%d/%m/%y %k:%M") %></td>
+          <td class='totalPrice'><%= order_history.total %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td colspan="5">Total</td>
+        <td id="mailTotal">0</td>
+      </tr>
+    </div>
+  </table>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    getTotal();
+  });
+  function getTotal() {
+    var total = 0;
+    $('.totalPrice').each(function () {
+      total += parseFloat(this.innerHTML);
+    });
+    $('#mailTotal').text(total);
+  }
+</script>

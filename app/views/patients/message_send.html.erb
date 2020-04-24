@@ -1,0 +1,30 @@
+<% if current_user.has_role? :patient %>
+  <% if @request == nil %>
+    <h2>plese send a requst to doctor</h2>
+    <%= link_to 'send_requst', message_request_patient_path(params[:id]) %> 
+  <% else%>
+    <% if is_requested?(params[:id]).present? %>
+      <h3>your request is pending</h3>
+    <% else %>
+      <% @messages.each do |msg| %> 
+        <strong><%= sender_name(msg.sender_id) %>:</strong>
+        <%= msg.message %></br>
+      <% end %>
+      <%= form_with(model:@message, url: message_send_patient_path(params[:id], patient_id: current_user.patient.id), local: true) do |f| %>
+        <p>
+          <%= f.label :message %><br/>
+          <%= f.text_area :message, placeholder:"type your message here #{current_user.patient.name}" %>   
+        </p>
+        <p>
+          <%= f.text_field :receiver_id, value: @doctor.user_id, id: "receiver_id", type:"hidden" %>
+          <%= f.text_field :sender_id, value: @patient.user_id, id: "sender_id", type:"hidden" %>
+        </p>
+        <P>
+          <%= f.submit class: "btn btn-success  btn-sm" %>
+        </p>
+      <% end %>
+    <% end %>
+  <% end %>
+<% else %>
+  <h2>this page is only for patients</h2>
+<% end %>

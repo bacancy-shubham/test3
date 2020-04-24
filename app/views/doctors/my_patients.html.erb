@@ -1,0 +1,7 @@
+<% @patients.each do |patient| %>
+<%= patient.name %>
+<%= patient.birthday %>
+<%= link_to 'Add Prescription', prescription_form_doctor_path(patient.id) %>
+<%= link_to 'Open Chat', open_chat_doctor_path(patient.id) %>
+<%= link_to 'Medical history', medical_history_doctor_path(patient.id) %>
+<% end %>

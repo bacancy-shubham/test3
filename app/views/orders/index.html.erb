@@ -1,0 +1,101 @@
+<a href ="/medicine_stocks/new"> Add Medicine </a>
+
+<h1> All Orders</h1>
+<!-- Search by Patient E-Mail : <input type="text" name="text" placeholder="Enter E-Mail" id = 'orderSearch' >   -->
+<table class="table table-dark" style="text-align: center;" border="1">
+  <thead>
+    <tr>
+      <th scope="col">Medicine Name</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Patient Name</th>
+      <th scope="col">Approve/Remove</th>
+      <th scope="col">Check Quantity</th>
+    </tr>
+  </thead>
+  <div id="container">
+    <% if @orders == nil then %>
+    <% else %>
+      <% @orders.each do |order| %>
+      <tr class='tr'>
+        <td><%= order.medicine_stock.name %></td> 
+        <td class='quantity'><%= order.quantity %></td>
+        <td><%= order.patient.user.email %></td>
+        <td style="display:none;" class="orderId"><%= order.id %></td>
+        <td style="display:none;" class="patientId"><%= order.patient.user.id %></td>
+        <td style="display:none;" class="stockQuantity"><%= order.medicine_stock.quantity %></td>
+        <td style="display:none;" class="id"><%= order.medicine_stock.id %></td>
+        <td id='btn'></td>
+        <td class='check' style="cursor: pointer;">Check Avaibility</td>
+      </tr>
+      <% end %>
+    <% end %>
+  </div>
+</table>
+<script>
+  $(document).ready(function(){
+    $('.check').on('click', function() {
+      var link = $(this);
+      var orderQuantity = $(this).closest(".tr").find(".quantity").text();
+      var stockQuantity = $(this).closest(".tr").find(".stockQuantity").text();
+      var btn = $(this).closest(".tr").find("#btn");
+      debugger
+      if (stockQuantity < orderQuantity)
+      {
+        btn.append("<button type='button' class='btn btn-success success'>Approve</button>");
+        $(link).removeClass("check").addClass('disabled');
+      }  
+      else
+      {
+        btn.append("<button type='button' class='btn btn-danger danger'>Remove</button>");
+      }
+    });
+
+    $(document).on('click', '.success', function() {
+      let orderQuantity = $(this).closest(".tr").find(".quantity").text();
+      let id = $(this).closest(".tr").find(".id").text();
+      var orderId = $(this).closest(".tr").find(".orderId").text();
+      let patientId = $(this).closest(".tr").find(".patientId").text();
+      var tr = $(this).closest(".tr");
+      var url = "/medical_stores/stock";
+      $.ajax({
+        type : "get",
+        url : url,
+        data : {"orderQuantity":orderQuantity,"id":id, 'patientId':patientId,'orderId':orderId},
+        datatype: 'script',
+        async: false,
+        success : function(data){
+         tr.hide();
+        }
+      });
+    });
+
+    $(document).on('click', '.danger', function() {
+      var orderId = $(this).closest(".tr").find(".orderId").text();
+      var tr = $(this).closest(".tr");
+      var url = "/medical_stores/sendmail";
+      $.ajax({
+        type : "get",
+        url : url,
+        data : {'orderId':orderId},
+        datatype: 'script',
+        async: false,
+        success : function(data){
+         tr.hide();
+        }
+      });
+    });
+
+  $("#orderSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    var url = "/medical_stores/search";
+      $.ajax({
+        headers: {
+          'X-CSRF-Token': document.querySelector("meta[name=csrf-token]").content
+        },
+        type : "get",
+        url : url,
+        data : {'email':value}
+      });
+  });
+});
+</script>

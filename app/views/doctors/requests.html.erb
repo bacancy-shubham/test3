@@ -1,0 +1,7 @@
+<h4>Requests</h4>
+<% @requests.each do |request| %>
+<% patient = find_patient_name( request.patient_id ) %>
+<%= patient.name %>
+<%= link_to 'Accept', request_accept_doctor_path(request) %>
+<%= link_to 'Reject', request_reject_doctor_path(request) %>
+<% end %>
