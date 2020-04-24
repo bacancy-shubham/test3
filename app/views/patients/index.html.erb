@@ -1,4 +1,4 @@
-<% if current_user.has_role? :patient %>
+  <% if current_user.has_role? :patient %>
   <h2>WELCOME TO PATIENT'S DEASHBORAD</h2>
   <% if payment %>
     <%= link_to "Pending Payments", new_charge_path %>
@@ -7,33 +7,39 @@
     <%= link_to "Order History", order_histories_path %>
   <% end %>
   <h3>Doctor's Inforation</h3>
-   <table cellpadding= "10" >
-     <tr>
-        <td>name</td>
-        <td>degree</td>
-        <td>specialization</td>
-        <td>authorized</td>
-        <td>hospital name</td>
-        <td>dr id</td> 
-        <td></td>
-        <td></td>
-     </tr>
-     <% @doctors.each do |doctor| %>
-       <tr>
-         <td><%= doctor.name %></td>
-         <td><%= doctor.degrees%></td>
-         <td><%= doctor.specialization %></td>
-         <td><%= doctor.authorized %></td>
-         <td><%= doctor.hospital.name%></td>
-         <td><%= doctor.id%></td>
-         <td><%= link_to "send message", message_patient_path(doctor, patient_id: current_user.id),
-         class: "btn btn-primary  btn-sm"%></td>
-         <td><%= link_to "prescription", prescription_patient_path(doctor, patient_id: current_user.id) %></td>
-       </tr>
-     <% end %>
-   </table>
+    <table class = "table" >
+      <thead class="thead-dark">
+        <tr>
+          <td>name</td>
+          <td>degree</td>
+          <td>specialization</td>
+          <td>authorized</td>
+          <td>hospital name</td>
+          <td>dr id</td> 
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <% @doctors.each do |doctor| %>
+          <tr>
+            <td><%= doctor.name %></td>
+            <td><%= doctor.degrees %></td>
+            <td><%= doctor.specialization %></td>
+            <td><%= doctor.authorized %></td>
+            <td><%= doctor.hospital.name %></td>
+            <td><%= doctor.id %></td>
+            <td><%= link_to 'send message', message_patient_path(doctor, patient_id: current_user.patient.id),
+            class: "btn btn-primary  btn-sm" %></td>
+            <td><%= link_to 'prescription', prescription_patient_path(doctor, patient_id: current_user.patient.id),
+            class: "btn btn-primary  btn-sm" %></td>
+            <td><%= link_to 'appoiment', appoiment_patient_path(doctor, patient_id: current_user.patient.id),
+            class: "btn btn-primary  btn-sm" %></td>
+          </tr>
+        <% end %>
+      </thead>
+    </table>
    <h2>Hospital`s information</h2>
-   <table cellpadding= "10">
+   <table class = "table">
      <tr>
        <td>name</td>
        <td>address</td>
@@ -44,11 +50,11 @@
        <tr>
          <td><%= hospital.name %></td>
          <td><%= hospital.address %></td>
-         <td><%= hospital.contact_number%></td>
-         <td><%= hospital.website%></td>
+         <td><%= hospital.contact_number %></td>
+         <td><%= hospital.website %></td>
        </tr>
      <% end %>
-   </table>
+  </table>
 <% else %>
   <h2>this page is only for patients</h2>
 <% end %>

@@ -25,11 +25,14 @@ Rails.application.routes.draw do
  
 
   resources :patients, except:[:show] do
-
     get 'message', on: :member, action: :message_send
     post 'message_send', on: :member, action: :message_create
     get 'message_request', on: :member, action: :message_requst
     get 'prescription', on: :member, action: :prescription
+    get 'appoiment', on: :member, action: :appoiment
+    post 'appoiment_send', on: :member, action: :appoiment_send
+    get 'store', on: :member, action: :medical_store
+    post 'order', on: :member, action: :place_order
   end
 
 

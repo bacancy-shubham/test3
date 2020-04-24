@@ -11,11 +11,11 @@
         <th></th>
       </tr>
       <% @prescriptions.each do |prescription| %>
-        <% @prescriptions.prescription_medicine.each do |medicine| %>
+        <% prescription.prescription_medicines.each do |medicine| %>
           <tr>
             <td><%= prescription.doctor.name %></td>
-           <!-- <td><%#= prescription.medicine %></td> -->
-           <!-- <td><%#= prescription.quantity %></td> --> 
+            <td><%= medicine.medicine %></td> 
+            <td><%= medicine.quantity %></td>  
           </tr>
         <% end %>
       <% end %>

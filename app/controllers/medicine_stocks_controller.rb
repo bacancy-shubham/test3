@@ -6,7 +6,7 @@ class MedicineStocksController < ApplicationController
 
   def create
     @medicine = MedicineStock.new(medicine_params)
-    binding.pry 
+    binding.pry
     @medicine.medical_store_id = current_user.medical_store.id
     if @medicine.save
       redirect_to medicine_stocks_path

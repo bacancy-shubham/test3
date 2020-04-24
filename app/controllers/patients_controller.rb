@@ -65,16 +65,20 @@ class PatientsController < ApplicationController
   end
 
   def place_order
+   if params[:presciption_ids] != nil
     (params[:presciption_ids]).each do |a|
-     medicine =  Prescription.find(a).medicine
-     quantity =  Prescription.find(a).quantity
-     @order = Order.new(medical_store_id: params[:order][:store_id],medicine: medicine,
-      quantity: quantity,patient_id: params[:id])
-    end
-    if @order.save
-      flash[:notice] = "order placed successfully"
+      medicine =  MedicineStock.find_by(name:a).medicine
+      quantity =  PrescriptionMedicine.find(a).quantity     
+      @order = Order.new(medical_store_id: params[:order][:store_id],medicine: medicine,
+        quantity: quantity,patient_id: params[:id])
+      end
+      if @order.save
+        flash[:notice] = "order placed successfully"
+      else
+        flash[:notice] = "order not placed"
+      end
     else
-      flash[:notice] = "order not placed"
+      flash[:notice] = "First select medicine"
     end
     redirect_to store_patient_path(params[:id], patient_id: current_user.patient.id) 
   end
