@@ -1,3 +1,4 @@
+<%=render 'layouts/store_layout'%>
 <a href ="/medicine_stocks/new"> Add Medicine </a>
 <h1> All Orders</h1>
 <!-- Search by Patient E-Mail : <input type="text" name="text" placeholder="Enter E-Mail" id = 'orderSearch' >   -->
@@ -45,7 +46,7 @@
       var stockQuantity = $(this).closest(".tr").find(".stockQuantity").text();
       var btn = $(this).closest(".tr").find("#btn");
       debugger
-      if (stockQuantity > orderQuantity)
+      if (stockQuantity < orderQuantity)
       {
         btn.append("<button type='button' class='btn btn-success success'>Approve</button>");
         $(link).removeClass("check").addClass('disabled');

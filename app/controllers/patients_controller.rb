@@ -11,7 +11,6 @@ class PatientsController < ApplicationController
      @patient = Patient.find_by(user_id: current_user.id) 
      @doctor = Doctor.find(params[:id])   
      @messages = Message.where(sender_id: @patient.user_id, receiver_id: @doctor.user_id).or(Message.where(sender_id: @doctor.user_id, receiver_id: @patient.user_id))         
-     #@messages = Message.where('sender_id = ? AND receiver_id = ?', params[:id], params[:patient_id])       
   end
 
   def message_create    
@@ -40,21 +39,28 @@ class PatientsController < ApplicationController
  
   def appoiment   
     @appoiment = Appoiment.new 
+    @months = SelectMonth.all.where('doctor_id = ?', params[:id])    
     @appoiments = Appoiment.all.where('doctor_id = ? AND patient_id = ?', params[:id],
     params[:patient_id])
   end
 
   def appoiment_send
-    # time = "#{params['time(4i)']}:#{params['time(5i)']}"
-    # Appoiment.create(timing: time, date: params[:date], doctor_id: params[:id],
-    #  patient_id: params[:patient_id]) 
-     appoiment = Appoiment.new(appoiment_params)
-     if appoiment.save
-      flash[:notice] = "appoiment has been book successfully"  
-     else
-      flash[:notice] = "Something went wrong"
-     end  
-    redirect_to appoiment_patient_path(patient_id: current_user.patient.id)       
+    avaibility = SelectMonth.all.where('doctor_id = ?', params[:id]) 
+    avaibility_starting_time = avaibility[0].starting_time.strftime("%k:%M")
+    avaibility_ending_time = avaibility[0].ending_time.strftime("%k:%M")
+    patient_date = params[:appoiment][:date].to_date 
+    patient_time = params[:appoiment][:timing].to_time.strftime("%k:%M")              
+    if avaibility[0].starting_date < patient_date && patient_date < avaibility[0].ending_date &&      avaibility_starting_time < patient_time && patient_time < avaibility_ending_time             
+      appoiment = Appoiment.new(appoiment_params)
+      if appoiment.save
+       flash[:notice] = "appoiment has been book successfully"  
+      else
+       flash[:notice] = "Something went wrong"
+      end  
+    else
+      flash[:notice] = "select date or time  between avaibility date"
+    end     
+    redirect_to appoiment_patient_path(patient_id: current_user.patient.id)      
   end
 
   def medical_store    
@@ -65,12 +71,12 @@ class PatientsController < ApplicationController
   end
 
   def place_order
-   if params[:presciption_ids] != nil
-    (params[:presciption_ids]).each do |a|
-      medicine =  MedicineStock.find_by(name:a).medicine
-      quantity =  PrescriptionMedicine.find(a).quantity     
-      @order = Order.new(medical_store_id: params[:order][:store_id],medicine: medicine,
-        quantity: quantity,patient_id: params[:id])
+    if params[:presciption_ids] != nil
+      (params[:presciption_ids]).each do |a|
+        medicine =  PrescriptionMedicine.find(a).medicine
+        quantity =  PrescriptionMedicine.find(a).quantity     
+        @order = Order.new(medical_store_id: params[:order][:store_id],medicine: medicine,
+          quantity: quantity,patient_id: params[:patient_id])
       end
       if @order.save
         flash[:notice] = "order placed successfully"
@@ -79,7 +85,7 @@ class PatientsController < ApplicationController
       end
     else
       flash[:notice] = "First select medicine"
-    end
+    end        
     redirect_to store_patient_path(params[:id], patient_id: current_user.patient.id) 
   end
 

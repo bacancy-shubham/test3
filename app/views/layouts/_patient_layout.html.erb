@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-  <% d = Doctor.find_by(user_id:current_user.id) %>
+  <%binding.pry%>
+  <% d = Patient.find_by(user_id:current_user.id) %>
   <a class="navbar-brand">Welcome <%= d.name %></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

@@ -1,21 +1,23 @@
-<script src="https://code.highcharts.com/highcharts.src.js"></script>
-
-<a href ="/medicine_stocks/new"> Add Medicine </a>
-
-<h1> All Orders</h1>
-<!-- Search by Patient E-Mail : <input type="text" name="text" placeholder="Enter E-Mail" id = 'orderSearch' >   -->
+<%=render 'layouts/store_layout'%>
+<div class="container">
   <div class="container row">
-    <div class="container col-md-6 row">
+    <div class="container col-md-4 row">
       <h4> Product bought : </h4>
       <%= pie_chart OrderHistory.group(:name).count %>
     </div>
-    <div class="container col-md-6 row">
+    <div class="container col-md-4 row">
       <h4> Pending Orders : </h4>
-      <%= pie_chart OrderHistory.group(:created_at).count %>
+      <%= pie_chart Order.group(:patient_id).count %>
+    </div>
+    <div class="container col-md-4 row">
+      <h4> Payments : </h4>
+      <%= pie_chart OrderHistory.where(medical_store_id:1).group(:status).sum(:total)%>
     </div>
   </div>
+</div> 
+<div class="container" style="margin-top: 50px;">
   <div class="container row">
-    <%= line_chart OrderHistory.group(:created_at).count %>
+    <h4> Order Created Date Base : </h4>
+    <%= line_chart OrderHistory.group('DATE(created_at)').count %>
   </div>
-
-
+</div>

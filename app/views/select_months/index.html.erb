@@ -1,3 +1,5 @@
+<%=render 'layouts/doctor_layout'%>
+<div class="container">
 <h1> All Avaibility</h1>
 <table class="table table-dark">
   <thead>
@@ -18,9 +20,11 @@
         <td><%= ((select_date.ending_time).to_time).strftime("%k:%M") %></td>
         <td><%= link_to 'Edit', edit_select_month_path(select_date), class: 'btn btn-sm btn-outline-success' %></td>
         <td>
-          <%= button_to 'Destroy', select_date, method: :delete, data: { confirm: 'Are you sure?'}, class: 'btn btn-outline-danger btn-sm' %>
+        <%= button_to 'Destroy', select_date, method: :delete, data: { confirm: 'Are you sure?'}, class: 'btn btn-outline-danger btn-sm' %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<%= link_to "Add Avaibility", new_select_month_path, class: "btn btn-success btn-sm" %>
+</div>

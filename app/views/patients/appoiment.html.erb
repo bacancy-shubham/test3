@@ -1,3 +1,23 @@
+<h2>Doctor's Avaibility</h2>
+<table class = "table">
+    <tr>
+      <td>Doctor Name</td>
+      <td>starting_date</td>
+      <td>ending_date</td>
+      <td>starting_time</td>
+      <td>ending_time</td>  
+    </tr>
+    <% @months.each do |month| %>
+      <tr>
+        <td><%= month.doctor.name %></td>
+        <td><%= month.starting_date %></td>
+        <td><%= month.ending_date %></td>
+        <td><%= (month.starting_time).to_time.strftime("%k:%M") %></td>
+        <td><%= (month.ending_time).to_time.strftime("%k:%M") %></td>
+      </tr>
+    <% end %>
+  </table>
+
 <h2>Book Appoiment</h2>
 <%= form_with(model:@appoiment, url: appoiment_send_patient_path(params[:id], 
 patient_id: current_user.patient.id), local: true) do |f| %>
@@ -11,7 +31,7 @@ patient_id: current_user.patient.id), local: true) do |f| %>
   </p>
   <p>
     <%= f.text_field :doctor_id, value: params[:id], id: "doctor_id", type:"hidden" %>
-    <%= f.text_field :patient_id, value: params[:patient_id], id: "patient_id", type:"hidden" %>
+    <%= f.text_field :patient_id, value: params[:patient_id], id: "patient_id", type:"hidden" %> 
   </p>
   <p>
     <%= f.submit :book, class: "btn btn-success  btn-sm" %>
@@ -28,7 +48,7 @@ patient_id: current_user.patient.id), local: true) do |f| %>
       <tr>
         <td><%= appoiment.doctor.name %></td>
         <td><%= appoiment.date %></td>
-        <td><%= appoiment.timing %></td>
+        <td><%= (appoiment.timing).to_time.strftime("%k:%M") %></td>
       </tr>
     <% end %>
   </table>

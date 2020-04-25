@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'stripe'
-
 gem 'chartkick'
 ruby '2.6.3'
 # This is a Rails gem for conveniently manage multiple nested models in a single form.

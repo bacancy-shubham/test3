@@ -1,4 +1,4 @@
-  <% if current_user.has_role? :patient %>
+<% if current_user.has_role? :patient %>
   <h2>WELCOME TO PATIENT'S DEASHBORAD</h2>
   <% if payment %>
     <%= link_to "Pending Payments", new_charge_path %>

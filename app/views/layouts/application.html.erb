@@ -2,32 +2,31 @@
 <html>
   <head>
     <title>Medico</title>
-     <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application',media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_pack_tag 'application',media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+  <%= stylesheet_link_tag "style" %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
-    <%= link_to "log out", destroy_user_session_path %>
   <body>
-    <div id="content">
-      <h3 class="notice"><%= notice %></h3>
-      <h3 class="alert"><%= alert %></h3> 
-      <%= yield %>
-    </div>
-    </div>  
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
-          $('#sidebar').toggleClass('active');
-        });
-      });
+    <section class="section">
+      <div class="content">
+         <%= link_to "log out", destroy_user_session_path, method: "delete" %>
+        <%= yield %>
+      </div>
+    </section>
+    <script>
+    function myFunction() {
+      var x = document.getElementById("sidebar");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
     </script>
 </body>
 </html>
