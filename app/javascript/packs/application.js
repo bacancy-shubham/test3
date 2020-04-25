@@ -10,6 +10,11 @@ require("channels")
 
 require("chartkick")
 require("chart.js")
+require('bootstrap.min')
+require('fontawesomes')
+require('popper.min')
+require('solid')
+
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_nested_form
@@ -21,4 +26,4 @@ require("chart.js")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-
+import 'css/site.scss'

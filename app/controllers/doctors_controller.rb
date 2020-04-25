@@ -12,7 +12,7 @@ class DoctorsController < ApplicationController
   @user = User.create!(doctor_params)
     if @user.save
       @user.add_role :doctor
-      redirect_to doctors_path
+      redirect_to new_user_session_path
     else
       render :login
     end
@@ -82,10 +82,11 @@ class DoctorsController < ApplicationController
   def prescription_form
     @today_prescription = Prescription.where(patient_id: params[:id]).last
     if @today_prescription != nil
-      if @today_prescription.created_at.strftime("%d%m%y") == Date.today.strftime("%d%m%y") 
-        @prescription_medicine = PrescriptionMedicine.new  
+      if @today_prescription.created_at.strftime("%d%m%y") == Date.today.strftime("%d%m%y")
+        @prescription_medicine = PrescriptionMedicine.new
         @temp = true
-      else  
+      else
+        @temp = false
         @prescription = Prescription.new
         @prescription_medicine = PrescriptionMedicine.new
       end

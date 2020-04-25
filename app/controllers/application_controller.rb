@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     if current_user.has_role?(:patient)      
       patients_path
     elsif current_user.has_role?(:doctor)
-      doctors_path
+      index_page_doctors_path
     elsif current_user.has_role?(:store)
       medical_stores_path 
     else

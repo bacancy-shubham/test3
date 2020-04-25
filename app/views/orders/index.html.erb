@@ -1,5 +1,4 @@
 <a href ="/medicine_stocks/new"> Add Medicine </a>
-
 <h1> All Orders</h1>
 <!-- Search by Patient E-Mail : <input type="text" name="text" placeholder="Enter E-Mail" id = 'orderSearch' >   -->
 <table class="table table-dark" style="text-align: center;" border="1">
@@ -17,15 +16,22 @@
     <% else %>
       <% @orders.each do |order| %>
       <tr class='tr'>
-        <td><%= order.medicine_stock.name %></td> 
+        <td><%= order.medicine %></td> 
         <td class='quantity'><%= order.quantity %></td>
         <td><%= order.patient.user.email %></td>
-        <td style="display:none;" class="orderId"><%= order.id %></td>
-        <td style="display:none;" class="patientId"><%= order.patient.user.id %></td>
-        <td style="display:none;" class="stockQuantity"><%= order.medicine_stock.quantity %></td>
-        <td style="display:none;" class="id"><%= order.medicine_stock.id %></td>
-        <td id='btn'></td>
-        <td class='check' style="cursor: pointer;">Check Avaibility</td>
+        <% if medicine_stock(order) %>
+        <% medicine = find_by_name(order) %>
+          <td style="display:none;" class="orderId"><%= order.id %></td>
+          <td style="display:none;" class="patientId"><%= order.patient.user.id %></td>
+          <td style="display:none;" class="stockQuantity"><%= medicine.quantity %></td>
+          <td style="display:none;" class="id"><%= medicine.id %></td>
+          <td id='btn'></td>
+          <td class='check' style="cursor: pointer;">Check Avaibility</td>
+        <% else %>
+          <td style="display:none;" class="orderId"><%= order.id %></td>
+          <td></td>
+          <td><button type='button' class='btn btn-danger danger'>Remove</button></td>
+        <% end %>
       </tr>
       <% end %>
     <% end %>
@@ -39,7 +45,7 @@
       var stockQuantity = $(this).closest(".tr").find(".stockQuantity").text();
       var btn = $(this).closest(".tr").find("#btn");
       debugger
-      if (stockQuantity < orderQuantity)
+      if (stockQuantity > orderQuantity)
       {
         btn.append("<button type='button' class='btn btn-success success'>Approve</button>");
         $(link).removeClass("check").addClass('disabled');

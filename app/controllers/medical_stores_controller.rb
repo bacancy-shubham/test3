@@ -16,6 +16,29 @@ class MedicalStoresController < ApplicationController
     end
   end 
 
+  def stock
+    @stock = MedicineStock.find(params[:id])
+    quantity = @stock.quantity
+    updated_quantity = quantity - params[:orderQuantity].to_i
+    @stock.update(quantity: updated_quantity)
+    order_history(@stock,params[:patientId], params[:orderQuantity].to_i)
+    Order.delete(params[:orderId])
+    render json: {
+      data: 'true', status: 200
+    }
+  end
+  
+  def sendmail
+    @order = Order.find(params[:orderId])
+    UserMailer.order(@order).deliver_now
+    Order.delete(params[:orderId])
+  end
+  
+  def order_history(stock, patientId,quantity)
+    total = (quantity) * (stock.price)
+    OrderHistory.create(user_id: patientId, name: stock.name, price: stock.price, quantity:quantity, medical_store_id:current_user.medical_store.id,total: total)
+  end
+
   def store_params
     params.require(:user).permit(:email, :password, :password_confirmation, medical_store_attributes: [:name, :city, :contact_number])
   end

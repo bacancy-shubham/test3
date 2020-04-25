@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 2020_04_23_125259) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "medicine_stock_id"
+    t.string "medicine"
     t.integer "quantity"
     t.integer "patient_id"
     t.integer "medical_store_id"
@@ -204,6 +204,11 @@ ActiveRecord::Schema.define(version: 2020_04_23_125259) do
   end
 
   create_table "select_months", force: :cascade do |t|
+    t.date "starting_date"
+    t.date "ending_date"
+    t.time "starting_time"
+    t.time "ending_time"
+    t.integer "doctor_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

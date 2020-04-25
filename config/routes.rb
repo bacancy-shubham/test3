@@ -37,8 +37,9 @@ Rails.application.routes.draw do
 
 
   resources :doctors, except:[:show] do
-    get 'login', on: :collection
     get 'create', on: :collection
+    get 'login', on: :collection
+    post 'create', on: :collection
     get 'index_page', on: :collection
     get 'requests', on: :collection
     get 'request_accept', on: :member, action: :request_accept
@@ -63,4 +64,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => {registrations: 'users/registrations'} 
 
+  # devise_for :users do
+  #   get '/users/sign_out' => 'devise/sessions#destroy'
+  # end
 end
