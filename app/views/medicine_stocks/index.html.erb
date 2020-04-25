@@ -1,0 +1,23 @@
+<h1> All Medicines</h1>
+<table class="table table-dark" style="text-align: center;">
+  <thead>
+    <tr>
+      <th scope="col">Medicine Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th colspan="2" scope="col"> Manage Stock </th>
+    </tr>
+  </thead>
+
+  <tbody >
+    <% @medicines.each do |medicine| %>
+    <tr>
+      <td><%= medicine.name %></td>
+      <td><%= medicine.price %></td>
+      <td><%= medicine.quantity %></td>
+      <td><%= link_to 'Edit', edit_medicine_stock_path(medicine) , class: 'btn btn-sm btn-outline-success'%></td>
+      <td><%= button_to 'Destroy',medicine, method: :delete, data: { confirm: 'Are you sure?'}, class: 'btn btn-outline-danger btn-sm' %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

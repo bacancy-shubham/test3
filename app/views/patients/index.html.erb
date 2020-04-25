@@ -1,0 +1,58 @@
+  <% if current_user.has_role? :patient %>
+  <h2>WELCOME TO PATIENT'S DEASHBORAD</h2>
+  <% if payment %>
+    <%= link_to "Pending Payments", new_charge_path %>
+  <% end %>
+  <%if order_history %>
+    <%= link_to "Order History", order_histories_path %>
+  <% end %>
+  <h3>Doctor's Inforation</h3>
+    <table class = "table" >
+      <thead class="thead-dark">
+        <tr>
+          <td>Name</td>
+          <td>Degree</td>
+          <td>Specialization</td>
+          <td>Authorized</td>
+          <td>Hospital Name</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <% @doctors.each do |doctor| %>
+          <tr>
+            <td><%= doctor.name %></td>
+            <td><%= doctor.degrees %></td>
+            <td><%= doctor.specialization %></td>
+            <td><%= doctor.authorized %></td>
+            <td><%= doctor.hospital.name %></td>
+            <td><%= link_to 'Send Message', message_patient_path(doctor, patient_id: current_user.patient.id),
+            class: "btn btn-primary  btn-sm" %></td>
+            <td><%= link_to 'Prescription', prescription_patient_path(doctor, patient_id: current_user.patient.id),
+            class: "btn btn-primary  btn-sm" %></td>
+            <td><%= link_to 'Appoiment', appoiment_patient_path(doctor, patient_id: current_user.patient.id),
+            class: "btn btn-primary  btn-sm" %></td>
+          </tr>
+        <% end %>
+      </thead>
+    </table>
+   <h2>Hospital's Information</h2>
+   <table class = "table">
+     <tr>
+       <td>name</td>
+       <td>address</td>
+       <td>contact number</td>
+       <td>website</td>
+     </tr>
+     <% @hospitals.each do |hospital| %>
+       <tr>
+         <td><%= hospital.name %></td>
+         <td><%= hospital.address %></td>
+         <td><%= hospital.contact_number %></td>
+         <td><%= hospital.website %></td>
+       </tr>
+     <% end %>
+  </table>
+<% else %>
+  <h2>this page is only for patients</h2>
+<% end %>

@@ -1,0 +1,48 @@
+<div class="container" style="margin: auto;width: 50%;border: 3px solid green;padding: 10px;text-align: center;">
+  <%= form_with model: @user, url: doctors_path, html: {method: :post} do |user_form| %>
+  <div class="form-group row">
+    <%= user_form.label :email, class: 'col-sm-4' %>
+    <%= user_form.text_field :email, class: 'col-sm-8' %>
+  </div>
+  <div class="form-group row">
+    <%= user_form.label :password, class: 'col-sm-4' %>
+    <%= user_form.password_field :password, class: 'col-sm-8' %>
+  </div>
+  <div class="form-group row">
+    <%= user_form.label :password_confirmation, class: 'col-sm-4' %>
+    <%= user_form.password_field :password_confirmation, class: 'col-sm-8' %>
+  </div>
+  <%= user_form.fields_for :doctor, @doctor do |form| %>
+
+  <div class="form-group row">
+    <%= form.label :doctor_name, class: 'col-sm-4' %>
+    <%= form.text_field :name, class: 'col-sm-8' %>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :degrees, class: 'col-sm-4' %>
+    <%= form.text_field :degrees, class: 'col-sm-8' %>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :specialization, class: 'col-sm-4' %>
+    <%= form.select(:specialization, options_for_select([['Surgeon'],['Psychiatrist'],['Cardiologist']], { class: 'form-control col-sm-8', prompt: 'Select Hospital'}))%>
+  </div>
+
+  <div class="form-group row">
+    <%= form.label :Hospital, class: 'col-sm-4' %>
+    <%= form.select(:hospital_id, options_from_collection_for_select(Hospital.all, :id, :name), { class: 'form-control col-sm-8', prompt: 'Select Hospital'}) %>
+  </div>
+
+
+
+  <% end %>
+  <div class="form-group row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <%= user_form.submit 'Become A Doctor' %>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+  <% end %>
+</div>

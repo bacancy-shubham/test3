@@ -1,0 +1,41 @@
+<div class="container" style="margin: auto;width: 50%;border: 3px solid green;padding: 10px;text-align: center;">
+  <h4>Become a Medical Store</h4>
+  <%= form_with model: @user, url: medical_stores_create_path, html: {method: :post} do |user_form| %>
+    <div class="form-group row">
+      <%= user_form.label :email, class: 'col-sm-4' %>
+      <%= user_form.text_field :email, class: 'col-sm-8' %>
+    </div>
+    <div class="form-group row">
+      <%= user_form.label :password, class: 'col-sm-4' %>
+      <%= user_form.password_field :password, class: 'col-sm-8' %>
+    </div>
+    <div class="form-group row">
+      <%= user_form.label :password_confirmation, class: 'col-sm-4' %>
+      <%= user_form.password_field :password_confirmation, class: 'col-sm-8' %>
+    </div>
+    <%= user_form.fields_for :medical_store, @medical_store do |form| %>
+    
+    <div class="form-group row">
+      <%= form.label :store_name, class: 'col-sm-4' %>
+      <%= form.text_field :name, class: 'col-sm-8' %>
+    </div>
+    
+    <div class="form-group row">
+      <%= form.label :city, class: 'col-sm-4' %>
+      <%= form.text_field :city, class: 'col-sm-8' %>
+    </div>
+
+    <div class="form-group row">
+      <%= form.label :contact_number, class: 'col-sm-4' %>
+      <%= form.number_field :contact_number, class: 'col-sm-8' %>
+    </div>
+  <% end %>
+  <div class="form-group row">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <%= user_form.submit 'Become A Medical Store' %>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+  <% end %>
+</div>

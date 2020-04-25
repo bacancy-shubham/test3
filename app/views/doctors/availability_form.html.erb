@@ -1,0 +1,92 @@
+<h4>Availability Form</h4>
+<table>
+  <%= form_with model:@availability, url: availability_post_doctor_path(@doctor.id) ,method: :post  do |form| %>
+  <tr>
+    <td>
+      Monday:
+    </td>
+    <td>
+      <%= form.time_field :available_from_1 %>
+    </td>
+    <td>to</td>
+    <td>
+      <%= form.time_field :available_to_1 %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Tuesday:
+    </td>
+    <td>
+      <%= form.time_field :available_from_2 %>
+    </td>
+    <td>to</td>
+    <td>
+      <%= form.time_field :available_to_2 %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Wednesday:
+    </td>
+    <td>
+      <%= form.time_field :available_from_3 %>
+    </td>
+    <td>to</td>
+    <td>
+      <%= form.time_field :available_to_3 %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Thursday:
+    </td>
+    <td>
+      <%= form.time_field :available_from_4 %>
+    </td>
+    <td>to</td>
+    <td>
+      <%= form.time_field :available_to_4 %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Friday:
+    </td>
+    <td>
+      <%= form.time_field :available_from_5 %>
+    </td>
+    <td>to</td>
+    <td>
+      <%= form.time_field :available_to_5 %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Saturday:
+    </td>
+    <td>
+      <%= form.time_field :available_from_6 %>
+    </td>
+    <td>to</td>
+    <td>
+      <%= form.time_field :available_to_6 %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Sunday:
+    </td>
+    <td>
+      <%= form.time_field :available_from_7 %>
+    </td>
+    <td>to</td>
+    <td>
+      <%= form.time_field :available_to_7 %>
+    </td>
+  </tr>
+  <tr>
+    <td><%= form.submit "Submit" %></td>
+  </tr>
+  <% end %>
+</table>

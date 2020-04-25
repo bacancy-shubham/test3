@@ -1,0 +1,21 @@
+<script src="https://code.highcharts.com/highcharts.src.js"></script>
+
+<a href ="/medicine_stocks/new"> Add Medicine </a>
+
+<h1> All Orders</h1>
+<!-- Search by Patient E-Mail : <input type="text" name="text" placeholder="Enter E-Mail" id = 'orderSearch' >   -->
+  <div class="container row">
+    <div class="container col-md-6 row">
+      <h4> Product bought : </h4>
+      <%= pie_chart OrderHistory.group(:name).count %>
+    </div>
+    <div class="container col-md-6 row">
+      <h4> Pending Orders : </h4>
+      <%= pie_chart OrderHistory.group(:created_at).count %>
+    </div>
+  </div>
+  <div class="container row">
+    <%= line_chart OrderHistory.group(:created_at).count %>
+  </div>
+
+

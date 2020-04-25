@@ -1,0 +1,27 @@
+<h1> All Avaibility</h1>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Starting Date</th>
+      <th scope="col">Ending Date</th>
+      <th scope="col">Starting Time</th>
+      <th scope="col">Ending Date</th>
+      <th colspan="2" scope="col"> Manage Avaibility</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @selectdates.each do |select_date| %>
+      <tr>
+        <td><%= select_date.starting_date %></td>
+        <td><%= select_date.ending_date %></td>
+        <td><%= ((select_date.starting_time).to_time).strftime("%k:%M") %></td>
+        <td><%= ((select_date.ending_time).to_time).strftime("%k:%M") %></td>
+        <td><%= link_to 'Edit', edit_select_month_path(select_date), class: 'btn btn-sm btn-outline-success' %></td>
+        <td>
+          <%= button_to 'Destroy', select_date, method: :delete, data: { confirm: 'Are you sure?'}, class: 'btn btn-outline-danger btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to "add Avaibility", new_select_month_path, class: "btn btn-success  btn-sm" %>
